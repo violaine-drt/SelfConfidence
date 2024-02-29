@@ -7,12 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-<form id="monFormulaire" action="http://localhost:5000/bdd/bdd" method="POST">
+<form id="monFormulairePost" action="http://localhost:5000/bdd/bdd" method="POST">
     <label for="newJoke">Ajoutez une blague 🤣</label>
     <input type="text" id="newJoke" name="newJoke"><br>
     <input type="submit" value="Envoyer">
 </form>
 
+<div>
+    <button onclick = "getJoke()">Donne-moi une blague!</button>
+</div>
+
+<div id="displayJoke">
+</div>
 
 
 </body>
