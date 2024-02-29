@@ -3,7 +3,8 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 const app = express();
 const fs = require('fs');
-const database = require('./bdd/bdd.json')
+const database = require('./bdd/bdd.json');
+const { citation } = require("./infrastructure/appelAPI");
 const jsonDb = {'database':database}
 
 //Middlewares
@@ -16,18 +17,10 @@ app.listen(port, () => {
 }
 )
 
-async function citation() {
-    let response = await fetch('https://www.affirmations.dev/');
-    let citation = await response.json();
-    let result = (citation.affirmation);
-    return result;
-}
-
-
 //Définir la doc et les endpoints de son API (comment on va utiliser les verbes get, post, put...)
 
 //Définitions des méthodes get post pour avoir résultat API extérieure
-app.get("/", async (req, res) => {
+app.get("/citation", async (req, res) => {
     let result = await  citation()
     console.log(result)
     res.send(result)
@@ -58,12 +51,14 @@ app.get("/bdd/bdd/:id",  (req, res) => {
   })
  
     
-app.post('/bdd/bdd', (req, res) =>{
+app.post('/renvoiClient', (req, res) =>{
     const newCitation = req.body.newJoke
     console.log(req)
     console.log(req.body)
     console.log(newCitation)
     database.push({"id" : (database.length + 1), "affirmation" : newCitation})
+    res.send("Citation ajoutée avec succès !");
+
 // Écrire les données mises à jour dans le fichier JSON
 fs.writeFile('./bdd/bdd.json', JSON.stringify(database), (err) => {
     if (err) {
@@ -74,4 +69,4 @@ fs.writeFile('./bdd/bdd.json', JSON.stringify(database), (err) => {
     }
   });
 })
-    // res.send(`Votre requête est bien reçue ${JSON.stringify(request)})
+
