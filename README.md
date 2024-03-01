@@ -1,2 +1,2 @@
 # SelfConfidence
-Un serveur délivrant des quotes boostant confiance en soi
+Une API délivrant des quotes sur la confiance en soir ou des blagues de dev`
